@@ -1,0 +1,8 @@
+SECRET_KEY=
+DEBUG=TRUE
+DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=localhost
+DB_PORT=
