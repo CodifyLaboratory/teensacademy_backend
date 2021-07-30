@@ -6,10 +6,9 @@ from rest_framework.response import Response
 from .serializers import *
 from .models import *
 
-
 # Create your views here.
 
-class AboutUsListView(APIView, ):
+class AboutUsListView(APIView,):
 
     def get(self, request, *args, **kwargs):
         about = AboutUs.objects.all()
@@ -23,7 +22,6 @@ class AboutUsListView(APIView, ):
             json_serializer = AboutUsSerializer(instance=about_object)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class AboutUsDetailView(APIView):
 
@@ -43,11 +41,11 @@ class AboutUsDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         about_us = AboutUs.objects.get(pk=kwargs.get('pk'))
         about_us.delete()
         return Response(data={'message': 'Обьект был удален'})
-
 
 class AdvantagesListView(APIView):
 
@@ -63,7 +61,6 @@ class AdvantagesListView(APIView):
             json_serializer = AdvantagesSerializer(instance=advantages_object)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class AdvantagesDetailView(APIView):
 
@@ -82,6 +79,7 @@ class AdvantagesDetailView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+
 
     def delete(self, request, *args, **kwargs):
         advantages = Advantages.objects.get(pk=kwargs.get('pk'))
@@ -105,30 +103,6 @@ class CourseCategoryList(APIView):
         return Response(data=serializer.errors)
 
 
-class CourseCategoryDetail(APIView):
-
-    def get(self, request, *args, **kwargs):
-        try:
-            course_category = CourseCategory.objects.get(pk=kwargs.get('pk'))
-        except CourseCategory.DoesNotExist as e:
-            return Response(data={"message": f'AboutUs was not found: {e}'}, status=404)
-
-        serializer = CourseCategorySerializer(instance=course_category)
-        return Response(data=serializer.data)
-
-    def put(self, request, *args, **kwargs):
-        course_category = CourseCategory.objects.get(pk=kwargs.get('pk'))
-        serializer = CourseCategorySerializer(instance=course_category, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-
-    def delete(self, request, *args, **kwargs):
-        course_category = CourseCategory.objects.get(pk=kwargs.get('pk'))
-        course_category.delete()
-        return Response(data={'message': 'Обьект был удален'})
-
-
 class CourseList(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -143,7 +117,6 @@ class CourseList(APIView):
             json_serializer = CourseSerializer(instance=course)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class CourseDetail(APIView):
 
@@ -163,8 +136,49 @@ class CourseDetail(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         course = Course.objects.get(pk=kwargs.get('pk'))
+        course.delete()
+        return Response(data={'message': 'Обьект был удален'})
+
+
+class CourseImageList(APIView):
+
+    def get(self, request, *args, **kwargs):
+        course = CourseImage.objects.all()
+        serializer = CourseImageSerializer(course, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = CourseImageSerializer(data=request.POST)
+        if serializer.is_valid():
+            course = serializer.save()
+            json_serializer = CourseImageSerializer(instance=course)
+            return Response(data=json_serializer.data, status=201)
+        return Response(data=serializer.errors)
+
+class CourseImageDetail(APIView):
+
+    def get(self, request, *args, **kwargs):
+        try:
+            course = CourseImage.objects.get(pk=kwargs.get('pk'))
+        except CourseImage.DoesNotExist as e:
+            return Response(data={"message": f'Course was not found: {e}'}, status=404)
+
+        serializer = CourseImageSerializer(instance=course)
+        return Response(data=serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        course = CourseImage.objects.get(pk=kwargs.get('pk'))
+        serializer = CourseImageSerializer(instance=course, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+
+    def delete(self, request, *args, **kwargs):
+        course = CourseImage.objects.get(pk=kwargs.get('pk'))
         course.delete()
         return Response(data={'message': 'Обьект был удален'})
 
@@ -184,7 +198,6 @@ class ContactList(APIView):
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
 
-
 class ContactDetail(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -203,11 +216,11 @@ class ContactDetail(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         contact = Contact.objects.get(pk=kwargs.get('pk'))
         contact.delete()
         return Response(data={'message': 'Обьект был удален'})
-
 
 class MentorList(APIView):
 
@@ -223,7 +236,6 @@ class MentorList(APIView):
             json_serializer = MentorSerializer(instance=mentor)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class MentorDetail(APIView):
 
@@ -242,6 +254,7 @@ class MentorDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+
 
     def delete(self, request, *args, **kwargs):
         mentor = Mentor.objects.get(pk=kwargs.get('pk'))
@@ -264,7 +277,6 @@ class ApplicationList(APIView):
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
 
-
 class ApplicationDetail(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -283,11 +295,11 @@ class ApplicationDetail(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         application = Application.objects.get(pk=kwargs.get('pk'))
         application.delete()
         return Response(data={'message': 'Обьект был удален'})
-
 
 class FeedbackList(APIView):
 
@@ -303,7 +315,6 @@ class FeedbackList(APIView):
             json_serializer = FeedbackSerializer(instance=feedback)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class FeedbackDetail(APIView):
 
@@ -323,49 +334,10 @@ class FeedbackDetail(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         feedback = Feedback.objects.get(pk=kwargs.get('pk'))
         feedback.delete()
-        return Response(data={'message': 'Обьект был удален'})
-
-
-class CategoryEventList(APIView):
-
-    def get(self, request, *args, **kwargs):
-        category_event = CategoryEvent.objects.all()
-        serializer = CategoryEventSerializer(category_event, many=True)
-        return Response(data=serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        serializer = CategoryEventSerializer(data=request.POST)
-        if serializer.is_valid():
-            category_event = serializer.save()
-            json_serializer = CategoryEventSerializer(instance=category_event)
-            return Response(data=json_serializer.data, status=201)
-        return Response(data=serializer.errors)
-
-
-class CategoryEventDetail(APIView):
-
-    def get(self, request, *args, **kwargs):
-        try:
-            category_event = CategoryEvent.objects.get(pk=kwargs.get('pk'))
-        except CategoryEvent.DoesNotExist as e:
-            return Response(data={"message": f'CategoryEvent was not found: {e}'}, status=404)
-
-        serializer = CategoryEventSerializer(instance=category_event)
-        return Response(data=serializer.data)
-
-    def put(self, request, *args, **kwargs):
-        category_event = CategoryEvent.objects.get(pk=kwargs.get('pk'))
-        serializer = CategoryEventSerializer(instance=category_event, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-
-    def delete(self, request, *args, **kwargs):
-        category_event = CategoryEvent.objects.get(pk=kwargs.get('pk'))
-        category_event.delete()
         return Response(data={'message': 'Обьект был удален'})
 
 
@@ -383,7 +355,6 @@ class EventList(APIView):
             json_serializer = EventSerializer(instance=event)
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
-
 
 class EventDetail(APIView):
 
@@ -403,11 +374,11 @@ class EventDetail(APIView):
             serializer.save()
             return Response(serializer.data)
 
+
     def delete(self, request, *args, **kwargs):
         event = Event.objects.get(pk=kwargs.get('pk'))
         event.delete()
         return Response(data={'message': 'Обьект был удален'})
-
 
 class FAQList(APIView):
 
@@ -424,7 +395,6 @@ class FAQList(APIView):
             return Response(data=json_serializer.data, status=201)
         return Response(data=serializer.errors)
 
-
 class FAQDetail(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -433,17 +403,58 @@ class FAQDetail(APIView):
         except FAQ.DoesNotExist as e:
             return Response(data={"message": f'FAQ was not found: {e}'}, status=404)
 
-        serializer = FAQSerializer(instance=faq)
+        serializer = FAQCourseSerializer(instance=faq)
         return Response(data=serializer.data)
 
     def put(self, request, *args, **kwargs):
         faq = FAQ.objects.get(pk=kwargs.get('pk'))
-        serializer = FAQSerializer(instance=faq, data=request.data)
+        serializer = FAQCourseSerializer(instance=faq, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+
 
     def delete(self, request, *args, **kwargs):
         faq = FAQ.objects.get(pk=kwargs.get('pk'))
         faq.delete()
         return Response(data={'message': 'Обьект был удален'})
+
+class FAQCourseList(APIView):
+
+    def get(self, request, *args, **kwargs):
+        faq = FAQCourse.objects.all()
+        serializer = FAQCourseSerializer(faq, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = FAQCourseSerializer(data=request.POST)
+        if serializer.is_valid():
+            faq = serializer.save()
+            json_serializer = FAQCourseSerializer(instance=faq)
+            return Response(data=json_serializer.data, status=201)
+        return Response(data=serializer.errors)
+
+class FAQCourseDetail(APIView):
+
+    def get(self, request, *args, **kwargs):
+        try:
+            faq = FAQCourse.objects.get(pk=kwargs.get('pk'))
+        except FAQCourse.DoesNotExist as e:
+            return Response(data={"message": f'FAQ was not found: {e}'}, status=404)
+
+        serializer = FAQSerializer(instance=faq)
+        return Response(data=serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        faq = FAQCourse.objects.get(pk=kwargs.get('pk'))
+        serializer = FAQCourseSerializer(instance=faq, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+
+    def delete(self, request, *args, **kwargs):
+        faq = FAQCourse.objects.get(pk=kwargs.get('pk'))
+        faq.delete()
+        return Response(data={'message': 'Обьект был удален'})
+

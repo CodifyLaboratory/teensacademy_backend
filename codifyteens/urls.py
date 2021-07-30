@@ -8,11 +8,11 @@ urlpatterns = [
     path('advantages/', AdvantagesListView.as_view(), name='advantages-list-create'),
     path('advantages/<int:pk>/', AdvantagesDetailView.as_view(), name='advantages'),
 
-    path('course-category/', CourseCategoryList.as_view(), name='course_category-list-create'),
-    path('course-category/<int:pk>/', CourseCategoryDetail.as_view(), name='course_category'),
-    #
     path('course/', CourseList.as_view(), name='course-list-create'),
     path('course/<int:pk>/', CourseDetail.as_view(), name='course'),
+
+    path('course_image/', CourseImageList.as_view(), name='course-list-create'),
+    path('course_image/<int:pk>/', CourseImageDetail.as_view(), name='course'),
 
     path('contact/', ContactList.as_view(), name='contact-list-create'),
     path('contact/<int:pk>/', ContactDetail.as_view(), name='contact'),
@@ -26,14 +26,14 @@ urlpatterns = [
     path('feedback/', FeedbackList.as_view(), name='feedback-list-create'),
     path('feedback/<int:pk>/', FeedbackDetail.as_view(), name='feedback'),
 
-    path('category-event/', CategoryEventList.as_view(), name='category_event-list-create'),
-    path('category-event/<int:pk>/', CategoryEventDetail.as_view(), name='category_event'),
-
     path('event/', EventList.as_view(), name='event-list-create'),
     path('event/<int:pk>/', EventDetail.as_view(), name='event'),
 
     path('FAQ/', FAQList.as_view(), name='FAQ-list-create'),
     path('FAQ/<int:pk>/', FAQDetail.as_view(), name='FAQ'),
+
+    path('FAQCourse/', FAQCourseList.as_view(), name='FAQCourse-list-create'),
+    path('FAQCourse/<int:pk>/', FAQCourseDetail.as_view(), name='FAQCourse'),
 
 
 ]
