@@ -5,6 +5,8 @@ from django.conf import settings
 from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
+    path('jet/', include('jet.urls', 'jet')),
+    path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
     path('', include('codifyteens.urls')),
 ]
