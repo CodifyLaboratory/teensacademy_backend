@@ -16,7 +16,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('documentation(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('documentation/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redocumentation/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('documentation(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0)),
+    path('documentation/', schema_view.with_ui('swagger', cache_timeout=0)),
+    path('redocumentation/', schema_view.with_ui('redoc', cache_timeout=0)),
 ]

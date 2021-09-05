@@ -1,17 +1,7 @@
 from django.contrib import admin
-from .models import *
+from .models import AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Application, Feedback, FAQ, \
+    Event, Mentor
 
-
-# Register your models here.
-class AboutusAdmin(admin.ModelAdmin):
-    class Meta:
-        model = AboutUs
-
-
-class CourseAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Course
-
-
-models = [AboutUs, Advantages, Course, Contact, Application, Feedback, Mentor, Event, CategoryEvent, FAQ]
+models = [AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Application, Feedback, FAQ, Event,
+          Mentor]
 admin.site.register(models)

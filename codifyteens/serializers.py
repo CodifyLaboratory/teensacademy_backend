@@ -1,70 +1,86 @@
 from rest_framework import serializers
-from .models import *
+from .models import AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Application, Feedback, FAQ, \
+    Event, Mentor
+
+
+class GalleryListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Gallery
+        fields = ('id', 'about_us', 'image')
 
 
 class AboutUsSerializer(serializers.ModelSerializer):
+    images = GalleryListSerializer(many=True, read_only=True)
+
     class Meta:
         model = AboutUs
-        fields = ('id', 'name', 'description',)
+        fields = ('id', 'description', 'images')
 
 
-class AdvantagesSerializer(serializers.ModelSerializer):
+class StatisticSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Advantages
-        fields = ('id', 'name', 'description', 'name')
+        model = Statistic
+        fields = ('id', 'number', 'description')
 
 
-class CourseCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CourseCategory
-        fields = ('id', 'name',)
-
-
-class CourseSerializer(serializers.ModelSerializer):
+class CourseListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('id', 'name', 'description', 'duration', 'price')
+        fields = ('id', 'title', 'description', 'age', 'image')
 
 
-class ContactSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contact
-        exclude = ('',)
+class MentorListSerializer(serializers.ModelSerializer):
+    course = CourseListSerializer(many=False, read_only=True)
 
-
-class MentorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mentor
-        exclude = ('',)
+        fields = ('id', 'course', 'first_name', 'last_name', 'description', 'image', 'status')
 
 
-#
-#
-class ApplicationSerializer(serializers.ModelSerializer):
+class CourseStudyPlanListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseStudyPlan
+        fields = ('id', 'course', 'section', 'description')
+
+
+class CourseProjectListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseProject
+        fields = ('id', 'course', 'image', 'description')
+
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    mentors = MentorListSerializer(many=True, read_only=True)
+    sections = CourseStudyPlanListSerializer(many=False, read_only=True)
+    projects = CourseProjectListSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Course
+        fields = ('id', 'title', 'description', 'text', 'age', 'duration', 'schedule', 'price',
+                  'mentors', 'sections', 'projects')
+
+
+class ApplicationDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        exclude = ('',)
+        fields = ['id', 'name', 'phone_number', 'email', 'comment', 'sent_date']
 
 
-class FeedbackSerializer(serializers.ModelSerializer):
+class FeedbackListSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Feedback
-        exclude = ('',)
+        fields = ['id', 'name', 'image', 'comment', 'created_at']
 
 
-class CategoryEventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CategoryEvent
-        fields = ('id', 'name',)
-
-
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        exclude = ('',)
-
-
-class FAQSerializer(serializers.ModelSerializer):
+class FAQListSerializer(serializers.ModelSerializer):
     class Meta:
         model = FAQ
-        exclude = ('',)
+        fields = ['id', 'question', 'answer']
+
+
+class EventListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ['id', 'title', 'description', 'date', 'time', 'location', 'image']
