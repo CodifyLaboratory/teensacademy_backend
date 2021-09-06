@@ -22,7 +22,7 @@ class Gallery(models.Model):
 
 
 class Statistic(models.Model):
-    number = models.PositiveIntegerField(verbose_name='Числовое значение')
+    number = models.CharField(verbose_name='Числовое значение', max_length=255)
     description = models.CharField(max_length=255, verbose_name='Краткое описание')
 
     def __str__(self):
