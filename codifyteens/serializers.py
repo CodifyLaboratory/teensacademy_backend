@@ -51,7 +51,7 @@ class CourseProjectListSerializer(serializers.ModelSerializer):
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     mentors = MentorListSerializer(many=True, read_only=True)
-    sections = CourseStudyPlanListSerializer(many=False, read_only=True)
+    sections = CourseStudyPlanListSerializer(many=True, read_only=True)
     projects = CourseProjectListSerializer(many=True, read_only=True)
 
     class Meta:
