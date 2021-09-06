@@ -40,7 +40,7 @@ class Course(models.Model):
     age = models.CharField(max_length=250, verbose_name='Возрастная категория')
     duration = models.CharField(max_length=250, verbose_name='Продолжительность курса')
     schedule = models.CharField(max_length=250, verbose_name='График занятий')
-    price = models.PositiveIntegerField(verbose_name='Стоимость курса')
+    price = models.CharField(max_length=250, verbose_name='Стоимость курса')
     image = models.ImageField(upload_to='gallery_images/', null=True, blank=True, verbose_name='Изображение')
 
     def __str__(self):
