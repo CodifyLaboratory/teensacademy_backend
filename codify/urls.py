@@ -8,7 +8,7 @@ urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
-    path('', include('codifyteens.urls')),
+    path('api/', include('codifyteens.urls')),
 ]
 
 urlpatterns += doc_urls

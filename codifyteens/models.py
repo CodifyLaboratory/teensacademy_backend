@@ -151,3 +151,17 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Certificate(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    image = models.ImageField(upload_to='feedbacks-photos/', verbose_name='Фотография')
+    comment = models.TextField(verbose_name='Отзыв')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return self.name
