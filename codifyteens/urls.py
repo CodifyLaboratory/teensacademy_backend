@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import AboutUsViewSet, StatisticViewSet, CourseViewSet, ApplicationViewSet, MentorViewSet, FeedbackViewSet, \
-    FAQViewSet, EventViewSet
+    FAQViewSet, EventViewSet, CertificateViewSet
 
 urlpatterns = [
     path('about-us/', AboutUsViewSet.as_view({'get': 'list'})),
@@ -8,7 +8,7 @@ urlpatterns = [
     path('feedbacks/', FeedbackViewSet.as_view({'get': 'list'})),
     path('questions/', FAQViewSet.as_view({'get': 'list'})),
     path('events/', EventViewSet.as_view({'get': 'list'})),
-
+    path('certificates/', CertificateViewSet.as_view({'get': 'list'})),
     path('mentors/', MentorViewSet.as_view({'get': 'list'})),
 
     path('application/', ApplicationViewSet.as_view({'post': 'create'})),

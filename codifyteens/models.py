@@ -86,7 +86,7 @@ class CourseProject(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='Курс',
                                related_name='projects')
     image = models.ImageField(upload_to='projects/', verbose_name='Проект')
-    description = models.CharField(verbose_name='Описание проекта', max_length=255)
+    description = models.CharField(verbose_name='Описание проекта', null=True, blank=True, max_length=255)
 
     class Meta:
         verbose_name = 'Выполненные работы на курсе'
@@ -113,8 +113,8 @@ class Application(models.Model):
 
 class Feedback(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
-    image = models.ImageField(upload_to='feedbacks-photos/', verbose_name='Фотография')
-    comment = models.TextField(verbose_name='Отзыв')
+    image = models.ImageField(upload_to='feedbacks-photos/', verbose_name='Фотография', null=True, blank=True)
+    comment = models.TextField(verbose_name='Отзыв', null=True, blank=True,)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     class Meta:
@@ -154,14 +154,12 @@ class Event(models.Model):
 
 
 class Certificate(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Имя')
-    image = models.ImageField(upload_to='feedbacks-photos/', verbose_name='Фотография')
-    comment = models.TextField(verbose_name='Отзыв')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    name = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
+    image = models.ImageField(upload_to='certificate-photos/', verbose_name='Сертификаты')
 
     class Meta:
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'Отзывы'
+        verbose_name = 'Сертификат'
+        verbose_name_plural = 'Сертификаты'
 
     def __str__(self):
         return self.name

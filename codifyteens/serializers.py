@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Application, Feedback, FAQ, \
-    Event, Mentor
+    Event, Mentor, Certificate
 
 
 class GalleryListSerializer(serializers.ModelSerializer):
@@ -84,3 +84,9 @@ class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'title', 'description', 'date', 'time', 'location', 'image']
+
+
+class CertificatesListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Certificate
+        fields = ('id', 'name', 'image')

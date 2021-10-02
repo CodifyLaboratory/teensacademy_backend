@@ -1,9 +1,10 @@
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
-from .models import AboutUs, Statistic, Course, Application, Feedback, FAQ, Event, Mentor
+from .models import AboutUs, Statistic, Course, Application, Feedback, FAQ, Event, Mentor, Certificate
 from .serializers import AboutUsSerializer, StatisticSerializer, CourseListSerializer, CourseDetailSerializer, \
-    MentorListSerializer, ApplicationDetailSerializer, FeedbackListSerializer, FAQListSerializer, EventListSerializer
+    MentorListSerializer, ApplicationDetailSerializer, FeedbackListSerializer, FAQListSerializer, EventListSerializer, \
+    CertificatesListSerializer
 
 
 class AboutUsViewSet(ReadOnlyModelViewSet):
@@ -57,3 +58,9 @@ class EventViewSet(ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     queryset = Event.objects.all()
     serializer_class = EventListSerializer
+
+
+class CertificateViewSet(ReadOnlyModelViewSet):
+    permission_classes = [AllowAny]
+    queryset = Certificate.objects.all()
+    serializer_class = CertificatesListSerializer
