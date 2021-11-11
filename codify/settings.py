@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from decouple import config, Csv
+import django.conf.locale
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,8 +16,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '167.71.5.171']
 # Application definition
 
 INSTALLED_APPS = [
-    'jet',
-    'jet.dashboard',
+    'jazzmin',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -98,8 +99,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -119,11 +118,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
-
-JET_CHANGE_FORM_SIBLING_LINKS = False
-JET_SIDE_MENU_COMPACT = True
-
-JET_DEFAULT_THEME = 'light-gray'
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -145,3 +139,89 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+LANGUAGE_CODE = 'ru'
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('en', gettext('English')),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_LANGUAGES = ('ru', 'en')
+MODELTRANSLATION_AVAILABLE_LANGUAGES = ('ru', 'en')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
+
+LANG_INFO = dict(django.conf.locale.LANG_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'codifyteens.translation',
+)
+
+JAZZMIN_SETTINGS = {
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Codify Teens",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Codify Teens",
+    # Welcome text on the login screen
+    "welcome_sign": "Добро пожаловать!",
+
+    "site_logo": "logologo.png",
+
+    # Copyright on the footer
+    "copyright": "Codify Teens",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Codify Teens",
+    "changeform_format_overrides": {
+        # "auth.user": "horizontal_tabs",
+        # "course.group": "vertical_tabs",
+    },
+
+    "show_ui_builder": True,
+    # "icons": {
+    #     "user.country": "fas fa-flag",
+    # },
+    # "order_with_respect_to": [
+    #
+    #     "info", "course", "user", "job",
+    # ],
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-purple",
+    "accent": "accent-purple",
+    "navbar": "navbar-purple navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-light-purple",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "spacelab",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
+    }
+}

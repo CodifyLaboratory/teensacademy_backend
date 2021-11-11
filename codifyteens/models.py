@@ -2,11 +2,11 @@ from django.db import models
 
 
 class AboutUs(models.Model):
-    description = models.TextField(null=False, verbose_name='Текст о нас')
+    description = models.TextField(verbose_name='Текст', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Информация о нас'
-        verbose_name_plural = 'Информация о нас'
+        verbose_name = 'О нас'
+        verbose_name_plural = 'О нас'
 
     def __str__(self):
         return self.description
@@ -23,24 +23,24 @@ class Gallery(models.Model):
 
 class Statistic(models.Model):
     number = models.CharField(verbose_name='Числовое значение', max_length=255)
-    description = models.CharField(max_length=255, verbose_name='Краткое описание')
+    description = models.CharField(max_length=255, verbose_name='Краткое описание', null=True, blank=True)
 
     def __str__(self):
         return self.description
 
     class Meta:
-        verbose_name = 'Информация о нас в цифрах'
-        verbose_name_plural = 'Информация о нас в цифрах'
+        verbose_name = 'О нас в цифрах'
+        verbose_name_plural = 'О нас в цифрах'
 
 
 class Course(models.Model):
-    title = models.CharField(max_length=250, verbose_name='Название курса')
-    description = models.TextField(verbose_name='Краткое описание')
-    text = models.TextField(verbose_name='Полное описание')
+    title = models.CharField(max_length=250, verbose_name='Название курса', null=True, blank=True)
+    description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
+    text = models.TextField(verbose_name='Полное описание', null=True, blank=True)
     age = models.CharField(max_length=250, verbose_name='Возрастная категория')
-    duration = models.CharField(max_length=250, verbose_name='Продолжительность курса')
-    schedule = models.CharField(max_length=250, verbose_name='График занятий')
-    price = models.CharField(max_length=250, verbose_name='Стоимость курса')
+    duration = models.CharField(max_length=250, verbose_name='Продолжительность курса', null=True, blank=True)
+    schedule = models.CharField(max_length=250, verbose_name='График занятий', null=True, blank=True)
+    price = models.CharField(max_length=250, verbose_name='Стоимость курса', null=True, blank=True)
     image = models.ImageField(upload_to='gallery_images/', null=True, blank=True, verbose_name='Изображение')
 
     def __str__(self):
@@ -54,11 +54,10 @@ class Course(models.Model):
 class Mentor(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='Курс',
                                related_name='mentors')
-    first_name = models.CharField(verbose_name='Имя', max_length=255)
-    last_name = models.CharField(verbose_name='Фамилия', max_length=255)
-    description = models.TextField(verbose_name='Краткое описание')
+    first_name = models.CharField(verbose_name='Имя', max_length=255, null=True, blank=True)
+    last_name = models.CharField(verbose_name='Фамилия', max_length=255, null=True, blank=True)
+    description = models.TextField(verbose_name='Краткое описание', null=True, blank=True)
     image = models.ImageField(upload_to='mentors-photos/', verbose_name='Фотография')
-    status = models.BooleanField(verbose_name='Статус ментора', default=True)
 
     def __str__(self):
         return self.first_name
@@ -71,12 +70,12 @@ class Mentor(models.Model):
 class CourseStudyPlan(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, verbose_name='Курс',
                                related_name='sections')
-    section = models.CharField(verbose_name='Название раздела', max_length=255)
-    description = models.TextField(verbose_name='Описание раздела')
+    section = models.CharField(verbose_name='Название раздела', max_length=255, null=True, blank=True)
+    description = models.TextField(verbose_name='Описание раздела', null=True, blank=True)
 
     class Meta:
-        verbose_name = 'План обучения на курсе'
-        verbose_name_plural = 'План обучения на курсе'
+        verbose_name = 'План обучения'
+        verbose_name_plural = 'План обучения'
 
     def __str__(self):
         return self.section
@@ -89,32 +88,17 @@ class CourseProject(models.Model):
     description = models.CharField(verbose_name='Описание проекта', null=True, blank=True, max_length=255)
 
     class Meta:
-        verbose_name = 'Выполненные работы на курсе'
-        verbose_name_plural = 'Выполненные работы на курсе'
+        verbose_name = 'Пример работ'
+        verbose_name_plural = 'Примеры работ'
 
     def __str__(self):
         return self.description
 
 
-class Application(models.Model):
-    name = models.CharField(verbose_name='Имя', max_length=200)
-    phone_number = models.CharField(max_length=200, verbose_name='Номер телефона')
-    email = models.EmailField(max_length=255, verbose_name='Почта', blank=True, null=True)
-    comment = models.CharField(verbose_name='Комментарий', max_length=250, blank=True, null=True)
-    sent_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Заявка'
-        verbose_name_plural = 'Заявки'
-
-
 class Feedback(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Имя')
+    name = models.CharField(max_length=255, verbose_name='Имя', null=True, blank=True)
     image = models.ImageField(upload_to='feedbacks-photos/', verbose_name='Фотография', null=True, blank=True)
-    comment = models.TextField(verbose_name='Отзыв', null=True, blank=True,)
+    comment = models.TextField(verbose_name='Отзыв', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     class Meta:
@@ -126,8 +110,8 @@ class Feedback(models.Model):
 
 
 class FAQ(models.Model):
-    question = models.CharField(max_length=250, verbose_name='Текст вопроса')
-    answer = models.TextField(verbose_name='Текст ответа')
+    question = models.CharField(max_length=250, verbose_name='Текст вопроса', null=True, blank=True)
+    answer = models.TextField(verbose_name='Текст ответа', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Часто задаваемые вопросы'
@@ -138,16 +122,16 @@ class FAQ(models.Model):
 
 
 class Event(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
-    date = models.DateTimeField(verbose_name='Дата', null=True, blank=True)
+    title = models.CharField(max_length=255, verbose_name='Название', null=True, blank=True)
+    description = models.TextField(verbose_name='Описание', null=True, blank=True)
+    date = models.DateField(verbose_name='Дата', null=True, blank=True)
     time = models.TimeField(verbose_name='Время', null=True, blank=True)
     location = models.CharField(max_length=255, verbose_name='Адрес', null=True, blank=True)
     image = models.ImageField(upload_to='events-images/', verbose_name='Изображение')
 
     class Meta:
-        verbose_name = 'Новости и мероприятия'
-        verbose_name_plural = 'Новости и мероприятия'
+        verbose_name = 'Мероприятие'
+        verbose_name_plural = 'Мероприятия'
 
     def __str__(self):
         return self.title

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Application, Feedback, FAQ, \
+from .models import AboutUs, Gallery, Statistic, Course, CourseStudyPlan, CourseProject, Feedback, FAQ, \
     Event, Mentor, Certificate
 
 
@@ -58,12 +58,6 @@ class CourseDetailSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('id', 'title', 'description', 'text', 'age', 'duration', 'schedule', 'price',
                   'mentors', 'sections', 'projects')
-
-
-class ApplicationDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Application
-        fields = ['id', 'name', 'phone_number', 'email', 'comment', 'sent_date']
 
 
 class FeedbackListSerializer(serializers.ModelSerializer):
