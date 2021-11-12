@@ -6,6 +6,8 @@ coreschema==0.0.4
 Django==3.2.3
 django-3-jet==1.0.8
 django-cors-headers==3.7.0
+django-jazzmin==2.4.8
+django-modeltranslation==0.17.3
 djangorestframework==3.12.4
 drf-yasg==1.20.0
 idna==2.10
@@ -24,5 +26,6 @@ ruamel.yaml==0.17.7
 ruamel.yaml.clib==0.2.2
 six==1.16.0
 sqlparse==0.4.1
+typing-extensions==3.10.0.2
 uritemplate==3.0.1
 urllib3==1.26.5

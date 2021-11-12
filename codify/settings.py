@@ -99,6 +99,29 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
+LANGUAGE_CODE = 'ru'
+gettext = lambda s: s
+LANGUAGES = (
+    ('ru', gettext('Russian')),
+    ('en', gettext('English')),
+)
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_LANGUAGES = ('ru', 'en')
+MODELTRANSLATION_AVAILABLE_LANGUAGES = ('ru', 'en')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
+
+LANG_INFO = dict(django.conf.locale.LANG_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+MODELTRANSLATION_TRANSLATION_FILES = (
+    'codifyteens.translation',
+)
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -139,29 +162,6 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
-
-LANGUAGE_CODE = 'ru'
-gettext = lambda s: s
-LANGUAGES = (
-    ('ru', gettext('Russian')),
-    ('en', gettext('English')),
-)
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
-MODELTRANSLATION_LANGUAGES = ('ru', 'en')
-MODELTRANSLATION_AVAILABLE_LANGUAGES = ('ru', 'en')
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('ru', 'en')
-
-LANG_INFO = dict(django.conf.locale.LANG_INFO)
-django.conf.locale.LANG_INFO = LANG_INFO
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
-
-MODELTRANSLATION_TRANSLATION_FILES = (
-    'codifyteens.translation',
-)
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
