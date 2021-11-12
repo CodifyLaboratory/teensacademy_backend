@@ -10,7 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '167.71.5.171']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '167.71.5.171', 'teens.codifylab.com']
 
 
 # Application definition
