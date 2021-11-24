@@ -75,7 +75,7 @@ class MentorAdmin(admin.ModelAdmin):
             'fields': ('first_name_ru', 'first_name_en', 'last_name_ru', 'last_name_en')
         }),
         ('Описание', {
-            'fields': ('duration_ru', 'duration_en')
+            'fields': ('description_ru', 'description_en')
         }),
         ('Фотография', {
             'fields': ('image',)
