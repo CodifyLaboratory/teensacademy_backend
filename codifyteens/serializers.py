@@ -34,7 +34,7 @@ class MentorListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Mentor
-        fields = ('id', 'course', 'first_name', 'last_name', 'description', 'image', 'status')
+        fields = ('id', 'course', 'first_name', 'last_name', 'description', 'image')
 
 
 class CourseStudyPlanListSerializer(serializers.ModelSerializer):
